@@ -12,20 +12,26 @@ body {
 }
 input {
   width: 4em;
+  height: 2em;
   font-size: 4em;
 }
 button {
   font-size: 4em;
+  height: 2em;
+  width: 10em;
+}
+#output {
+  height: 93vh;
+  overflow-y: scroll;
 }
 #output div {
-  display: block;
   font-size: 4em;
 }
 </style>
 </head>
 <body>
 <div class="controls">
-  <button onClick="javascript:reset()">Reset</button>
+  <!-- <button onClick="javascript:reset()">Reset</button> -->
   <input id="n" type="number" max="1000" />
   <button onClick="javascript:clicked()">Next</button>
 </div>
@@ -54,18 +60,29 @@ function setValue(x) {
   inp().value = x;
 }
 
+function scrollDown() {
+  var div = document.getElementById("output");
+  div.scrollTop = div.scrollHeight;
+}
+
 function reset() {
   output().innerHTML = "";
+  for (var i=0; i<26; i++) {
+    var emptyDiv = document.createElement("div");
+    emptyDiv.innerHTML = "&nbsp;";
+    output().appendChild(emptyDiv);
+  }
   setValue(rand());
 }
 
 function log(x) {
   var div = document.createElement("div");
   div.innerText = x;
-  output().prepend(div);
+  output().appendChild(div);
+  scrollDown();
 }
 
-setTimeout(function() { setValue(rand()); }, 10);
+setTimeout(reset, 10);
 
 function clicked() {
   var n = parseInt(inp().value);
