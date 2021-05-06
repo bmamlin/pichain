@@ -59,7 +59,7 @@ function log(x) {
   output().prepend(div);
 }
 
-// setValue(rand());
+setTimeout(function() { setValue(rand()); }, 10);
 
 function clicked() {
   var n = parseInt(inp().value);
