@@ -23,7 +23,6 @@ button {
 #output {
   height: 75vh;
   overflow-y: scroll;
-  background-color: lightred;
 }
 #output div {
   font-size: 4em;
@@ -88,7 +87,15 @@ setTimeout(reset, 10);
 function clicked() {
   var n = parseInt(inp().value);
   log(n);
-  inp().value = next(n);
+  var nextValue = next(n);
+  inp().value = nextValue;
+  for (elem of output().children) {
+    if (elem.innerText == nextValue) {
+      elem.style.backgroundColor = "yellow";
+    } else {
+      elem.style.backgroundColor = "white";
+    }
+  };
 }
 </script>
 </body>
