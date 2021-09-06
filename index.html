@@ -92,8 +92,7 @@
           emptyDiv.innerHTML = "&nbsp;";
           output().appendChild(emptyDiv);
         }
-        if (!keepValue)
-          setValue(rand());
+        if (!keepValue) setValue(rand());
       }
 
       function log(x) {
@@ -106,15 +105,18 @@
       setTimeout(reset, 10);
 
       function clicked() {
+        if (inp().value.trim() === "") {
+          reset();
+          return;
+        }
         var n = parseInt(inp().value);
-        if (n != currValue)
-          reset(1);
-        currValue = n;
+        if (n != currValue) reset(1);
         log(n);
         var nextValue = next(n);
         counter++;
         updateCounter();
         inp().value = nextValue;
+        currValue = nextValue;
         for (elem of output().children) {
           if (elem.innerText == nextValue) {
             elem.style.backgroundColor = "yellow";
