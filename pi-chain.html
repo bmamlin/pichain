@@ -57,6 +57,9 @@ function group(p) {
     return Math.min(...chain);
 }
 
+let params = new URLSearchParams(document.location.search);
+let q = params.get('q');
+
 let nodes = [];
 let links = [];
 let groups = [];
@@ -82,7 +85,13 @@ const graph = ForceGraph3D()
     .nodeThreeObject(node => {
       const sprite = new SpriteText(node.id);
       sprite.material.depthWrite = false; // make sprite background transparent
-      sprite.color = groupColors[node.group];
+      sprite.color = node.id==q ? 'yellow' : groupColors[node.group];
+      if (node.id==q) {
+        sprite.borderWidth = 2;
+        sprite.borderColor = 'yellow';
+        sprite.borderRadius = 18;
+        sprite.padding = 9;
+      }
       sprite.textHeight = 18;
       return sprite;
     })

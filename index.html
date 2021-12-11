@@ -90,6 +90,10 @@
         div.scrollTop = div.scrollHeight;
       }
 
+      function openPiChain() {
+        window.open('pi-chain.html?q=' + self.elem.innerText); 
+      }
+
       function reset(keepValue) {
         counter = 1;
         updateCounter();
@@ -105,6 +109,7 @@
       function log(x) {
         var div = document.createElement("div");
         div.innerText = x;
+        div.onclick = openPiChain;
         output().appendChild(div);
         scrollDown();
       }
