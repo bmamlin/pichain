@@ -44,7 +44,7 @@
   </head>
   <body>
     <div id="graph">
-      <a href="pi-chain.html"><img src="pi-chain.png" /></a>
+      <a href="javascript:openPiChain()"><img src="pi-chain.png" /></a>
     </div>
     <div id="counter"></div>
     <div class="controls">
@@ -90,8 +90,8 @@
         div.scrollTop = div.scrollHeight;
       }
 
-      function openPiChain() {
-        window.open('pi-chain.html?q=' + self.elem.innerText); 
+      function openPiChain(event) {
+        window.open('pi-chain.html?q=' + (event ? event.target.innerText : inp().value)); 
       }
 
       function reset(keepValue) {
