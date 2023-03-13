@@ -85,7 +85,7 @@
 
       function rand() {
         // Pick randomly from weighted digits (favors digits that are less often encountered in pichains)
-        return weightedDigits[Math.floor(Math.random() * weightedDigits.length) + 1];
+        return weightedDigits[Math.floor(Math.random() * weightedDigits.length)];
       }
 
       function setValue(x) {
