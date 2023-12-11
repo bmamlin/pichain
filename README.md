@@ -7,7 +7,7 @@ single-digit pi chain with the first 9 decimal digits of pi, double-digit pi cha
 with the first 99 decimal digits of pi, or triple-digit pi chain with the first 
 999 decimal digits of pi.
 
-![pi-chain.html](pichain.gif)
+[![3D rending of 3-digit pi chain](pichain.gif)](pi-chain.html)
 
 For example, starting with the number 4, a single-digit pi chain would be the 
 series: 4, 5, 9, 3, 1. This is because the 4th decimal digit is 5, the 5th is 9,
