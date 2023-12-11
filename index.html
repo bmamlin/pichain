@@ -9,6 +9,16 @@
       #graph {
         opacity: 0.5;
         float: right;
+        display: block;
+      }
+      #size {
+        opacity: 0.1;
+        clear: right;
+        float: right;
+        width: 12%;
+        text-align: center;
+        font-size: 4em;
+        cursor: pointer;
       }
       #counter {
         position: absolute;
@@ -46,6 +56,9 @@
     <div id="graph">
       <a href="javascript:openPiChain()"><img src="pi-chain.png" /></a>
     </div>
+    <div id="size" onclick="javascript:toggleSize()">
+      3
+    </div>
     <div id="counter"></div>
     <div class="controls">
       <!-- <button onClick="javascript:reset()">Reset</button> -->
@@ -65,6 +78,11 @@
 
       var counter;
       var currValue = -1;
+      var numDigits = 3;
+
+      function size() {
+        return document.getElementById("size");
+      }
 
       function inp() {
         return document.getElementById("n");
@@ -78,12 +96,18 @@
         return document.getElementById("output");
       }
 
-      function next(p) {
+      // Get digit following p for chain size s (1, 2, or 3)
+      function next(p, s) {
         if (p < 1) return 0;
-        return parseInt(pi.substring(p - 1, p + 2));
+        if (![1,2,3].includes(s)) s = 3;
+        return parseInt(pi.substring(p - 1, p + (s - 1)));
       }
 
-      function rand() {
+      // Get random number with up to s digits
+      function rand(s) {
+        if (![1,2,3].includes(s)) s = 3;
+        if (s == 1) return Math.floor(Math.random() * 9)+1;
+        if (s == 2) return Math.floor(Math.random() * 99)+1;
         // Pick randomly from weighted digits (favors digits that are less often encountered in pichains)
         return weightedDigits[Math.floor(Math.random() * weightedDigits.length)];
       }
@@ -99,7 +123,7 @@
       }
 
       function openPiChain(event) {
-        window.open('pi-chain.html?q=' + (event ? event.target.innerText : inp().value)); 
+        window.open('pi-chain.html?q=' + (event ? event.target.innerText : inp().value) + '&s=' + numDigits); 
       }
 
       function reset(keepValue) {
@@ -111,7 +135,7 @@
           emptyDiv.innerHTML = "&nbsp;";
           output().appendChild(emptyDiv);
         }
-        if (!keepValue) setValue(rand());
+        if (!keepValue) setValue(rand(numDigits));
       }
 
       function log(x) {
@@ -120,6 +144,12 @@
         div.onclick = openPiChain;
         output().appendChild(div);
         scrollDown();
+      }
+
+      function toggleSize() {
+        numDigits = (numDigits % 3) + 1;
+        size().innerText = numDigits;
+        reset(false);
       }
 
       setTimeout(reset, 10);
@@ -132,7 +162,7 @@
         var n = parseInt(inp().value);
         if (n != currValue) reset(1);
         log(n);
-        var nextValue = next(n);
+        var nextValue = next(n, numDigits);
         counter++;
         updateCounter();
         inp().value = nextValue;
